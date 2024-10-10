@@ -1,7 +1,8 @@
 <?php namespace AgungDhewe\PhpLogger;
 
 class Logger {
-	public static $OUTPUT = LoggerOutput::STDOUT;
+	
+	public static $OUTPUT = LoggerOutput::SCREEN;
 	public static $FILEPATH;
 
 
@@ -31,10 +32,10 @@ class Logger {
 	}
 
 	public static function Print(string $message) : void {
-		
+		fwrite(STDOUT, $message);
 	}
 
 	public static function PrintLn(string $message) : void {
-		
+		self.Print($message . "\r\n");
 	}
 }
