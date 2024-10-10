@@ -1,2 +1,43 @@
-# phplogger
-logger untuk php
+# PHP Logger
+Simple logger for php
+
+## Install
+
+	composer require agungdhewe/phplogger
+
+## Example
+
+
+### Output to Screen and record in log.txt
+
+	use AgungDhewe\PhpLogger\Log;
+
+	Log::info("Hello World");
+	Log::debug("test debug");
+
+
+### Output to File Only
+
+	use AgungDhewe\PhpLogger\Log;
+	use AgungDhewe\PhpLogger\Logger;
+	use AgungDhewe\PhpLogger\LoggerOutput;
+
+	Logger::SetOutput(LoggerOutput::FILE);
+
+	Log::info("Hello World");
+	Log::debug("test debug");
+	Log::error("test error");
+
+
+### Change log filename
+
+	use AgungDhewe\PhpLogger\Log;
+	use AgungDhewe\PhpLogger\Logger;
+	use AgungDhewe\PhpLogger\LoggerOutput;
+
+	Logger::SetOutput(LoggerOutput::FILE);
+	Logger::SetFilepath(__DIR__ . "/myownlog.txt");
+
+	Log::info("Hello World");
+	Log::debug("test debug");
+	Log::error("test error");

@@ -1,0 +1,16 @@
+2024-10-10 21:02:11	INFO	Hello World
+2024-10-10 21:02:11	DEBUG	test debug	
+2024-10-10 21:02:11	[1;31;40mERROR[0m	test error	
+2024-10-10 21:02:11	[1;33;40mWARNING[0m	test warning	
+2024-10-10 21:03:55	INFO	Hello World
+2024-10-10 21:03:55	DEBUG	test debug	
+2024-10-10 21:03:55	[1;31;40mERROR[0m	test error	
+2024-10-10 21:03:55	[1;33;40mWARNING[0m	test warning	
+2024-10-10 21:04:24	INFO	Hello World
+2024-10-10 21:04:24	DEBUG	test debug	/home/agung/Development/agungdhewe/phplogger/coba.php:14
+2024-10-10 21:04:24	[1;31;40mERROR[0m	test error	/home/agung/Development/agungdhewe/phplogger/coba.php:15
+2024-10-10 21:04:24	[1;33;40mWARNING[0m	test warning	/home/agung/Development/agungdhewe/phplogger/coba.php:16
+2024-10-10 21:04:53	INFO	Hello World
+2024-10-10 21:04:53	DEBUG	test debug	/home/agung/Development/agungdhewe/phplogger/coba.php:14
+2024-10-10 21:04:53	[1;31;40mERROR[0m	test error	/home/agung/Development/agungdhewe/phplogger/coba.php:15
+2024-10-10 21:04:53	[1;33;40mWARNING[0m	test warning	/home/agung/Development/agungdhewe/phplogger/coba.php:16
