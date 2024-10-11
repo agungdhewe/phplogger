@@ -2,14 +2,22 @@
 
 class Log {
 
-	private static function log(string $level, mixed $message) {
+	private static function log(string $level, mixed $message, ?string $reference='') {
 		if (is_array($message) || is_object($message)) {
 			$text = print_r($message, true);
 		} else {
 			$text = $message;
 		}
-
-		Logger::WriteLn(date("Y-m-d H:i:s") . "\t" . LoggerLevel::getLabel($level) . "\t" . $text);
+	
+		if ($level==LoggerLevel::DEBUG) {
+			// apabila level debug, tidak peru tulis ke log, dan tidak perlu menampilakan label
+			Logger::Debug($text . "\t" . "\e[0;33;40m" . $reference . "\e[0m");
+		} else {
+			Logger::WriteLn(date("Y-m-d H:i:s") . "\t" . $level . "\t" . $text);
+			Logger::Debug(LoggerLevel::getLabel($level) . "\t" . $text);
+		}
+	
+		
 		if (Logger::$OUTPUT == LoggerOutput::SCREEN | Logger::$OUTPUT == LoggerOutput::SCREEN_ONLY) {
 			Logger::PrintLn(LoggerLevel::getLabel($level) . ": " . $text);
 		}
@@ -28,7 +36,7 @@ class Log {
 
 	public static function debug(mixed $message) : void {
 		$reference = self::getCallerReference();
-		self::log(LoggerLevel::DEBUG, $message . "\t" . $reference);;
+		self::log(LoggerLevel::DEBUG, $message, $reference);;
 	}
 
 	public static function error(mixed $message) : void {
