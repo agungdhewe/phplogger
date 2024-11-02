@@ -2,7 +2,7 @@
 
 class Log {
 
-	private static function log(string $level, mixed $message, ?string $reference='') {
+	private static function log(string $level, mixed $message, ?string $reference='') : string {
 		if (is_array($message) || is_object($message)) {
 			$text = print_r($message, true);
 		} else {
@@ -21,6 +21,8 @@ class Log {
 		if (Logger::$OUTPUT == LoggerOutput::SCREEN | Logger::$OUTPUT == LoggerOutput::SCREEN_ONLY) {
 			Logger::PrintLn(LoggerLevel::getLabel($level) . ": " . $text);
 		}
+
+		return $text;
 	}
 
 	public static function getCallerReference() : string {
@@ -39,14 +41,16 @@ class Log {
 		self::log(LoggerLevel::DEBUG, $message, $reference);;
 	}
 
-	public static function error(mixed $message) : void {
+	public static function error(mixed $message) : string {
 		$reference = self::getCallerReference();
-		self::log(LoggerLevel::ERROR, $message . "\t" . $reference);
+		$msg = self::log(LoggerLevel::ERROR, $message . "\t" . $reference);
+		return $msg;
 	}
 
-	public static function warning(mixed $message) : void {
+	public static function warning(mixed $message) : string {
 		$reference = self::getCallerReference();
-		self::log(LoggerLevel::WARNING, $message . "\t" . $reference);
+		$msg = self::log(LoggerLevel::WARNING, $message . "\t" . $reference);
+		return $msg;
 	}
 
 	public static function print(mixed $message) : void {
