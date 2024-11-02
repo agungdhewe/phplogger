@@ -60,7 +60,7 @@ class Logger {
 
 
 	public static function WriteLn(string $message) :void {
-		if (self::$OUTPUT == LoggerOutput::SCREEN_ONLY) {
+		if (self::$OUTPUT == LoggerOutput::SCREEN_ONLY || self::$OUTPUT == LoggerOutput::NONE) {
 			return;
 		}
 
