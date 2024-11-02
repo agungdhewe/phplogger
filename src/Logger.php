@@ -1,5 +1,7 @@
 <?php namespace AgungDhewe\PhpLogger;
 
+if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
+
 class Logger {
 
 	public static string $OUTPUT = LoggerOutput::SCREEN;
