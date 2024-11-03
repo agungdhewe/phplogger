@@ -27,7 +27,20 @@ class Logger {
 
 		// clear debug log
 		$debugpath = self::GetDebugFilepath();
-		file_put_contents($debugpath, "");
+
+		if (php_sapi_name() === 'cli') {
+			// pada mode cli, clear file debug pada saat memulai debug
+			file_put_contents($debugpath, "");
+		} else {
+			// pada mode webserver, debug di clear hanya saat ada parameter $_GET['cleardebug'] = 1
+			if (array_key_exists('cleardebug', $_GET)) {
+				$cleardebug = $_GET['cleardebug'];
+				if ($cleardebug == 1) {
+					file_put_contents($debugpath, "");
+				}
+			}
+		}
+
 	}
 
 
