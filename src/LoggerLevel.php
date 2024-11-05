@@ -10,7 +10,7 @@ class LoggerLevel
 	public static function getLabel(string $level) {
 		switch ($level) {
 			case self::INFO:
-				return "". self::INFO;
+				return "\e[1;37;40m". self::INFO . "\e[0m";
 
 			case self::DEBUG:
 				return "". self::DEBUG;
