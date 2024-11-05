@@ -9,6 +9,7 @@ class Logger {
 	public static string $DEBUG_FILEPATH;
 
 	private static bool $_DEBUG_MODE = false;
+	private static bool $_INFO_SHOW_CALLER_FILE = false;
 
 	public static function SetOutput(string $output) : void {
 		self::$OUTPUT = $output;
@@ -44,6 +45,17 @@ class Logger {
 		$debugpath = self::GetDebugFilepath();
 		file_put_contents($debugpath, "");
 	}
+<<<<<<< HEAD
+=======
+
+	public static function ShowCallerFileOnInfo(bool $value) : void {
+		self::$_INFO_SHOW_CALLER_FILE = $value;
+	}
+
+	public static function IsCallerFileShownOnInfo() : bool {
+		return self::$_INFO_SHOW_CALLER_FILE;
+	}
+>>>>>>> main
 
 	public static function GetLogFilepath() : string {
 		if (!isset(self::$LOG_FILEPATH)) {

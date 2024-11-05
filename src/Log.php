@@ -11,10 +11,14 @@ class Log {
 	
 		if ($level==LoggerLevel::DEBUG) {
 			// apabila level debug, tidak peru tulis ke log, dan tidak perlu menampilakan label
-			Logger::Debug($text . "\t" . "\e[0;33;40m" . $reference . "\e[0m");
+			Logger::Debug("\e[0;33;40m" . $text . "\e[0m" . "\t" . "\e[0;34;40m" . $reference . "\e[0m");
 		} else {
 			Logger::WriteLn(date("Y-m-d H:i:s") . "\t" . $level . "\t" . $text);
-			Logger::Debug(LoggerLevel::getLabel($level) . "\t" . $text);
+			if ($reference=='') {
+				Logger::Debug(LoggerLevel::getLabel($level) . "\t" . $text);
+			} else {
+				Logger::Debug(LoggerLevel::getLabel($level) . "\t" . $text . " " . "\e[0;34;40m" . $reference. "\e[0m");
+			}	
 		}
 	
 		
@@ -33,7 +37,12 @@ class Log {
 	}
 
 	public static function info(mixed $message) : void {
-		self::log(LoggerLevel::INFO, $message);
+		if (Logger::IsCallerFileShownOnInfo()) {
+			$reference = self::getCallerReference();
+			self::log(LoggerLevel::INFO, $message, $reference);
+		} else {
+			self::log(LoggerLevel::INFO, $message);
+		}
 	}
 
 	public static function debug(mixed $message) : void {
