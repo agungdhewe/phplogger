@@ -26,32 +26,25 @@ class Logger {
 	public static function SetDebugMode(bool $mode) : void {
 		self::$_DEBUG_MODE = $mode;
 
-		// clear debug log
-		$debugpath = self::GetDebugFilepath();
-
 		if (php_sapi_name() === 'cli') {
 			// pada mode cli, clear file debug pada saat memulai debug
-			file_put_contents($debugpath, "");
+			self::clearDebug();
 		} else {
 			// pada mode webserver, debug di clear hanya saat ada parameter $_GET['cleardebug'] = 1
 			if (array_key_exists('cleardebug', $_GET)) {
 				$cleardebug = $_GET['cleardebug'];
 				if ($cleardebug == 1) {
-					file_put_contents($debugpath, "");
+					self::clearDebug();
 				}
 			}
 		}
 
 	}
 
-	public static function ShowCallerFileOnInfo(bool $value) : void {
-		self::$_INFO_SHOW_CALLER_FILE = $value;
+	public static function clearDebug() : void {
+		$debugpath = self::GetDebugFilepath();
+		file_put_contents($debugpath, "");
 	}
-
-	public static function IsCalerFileShownOnInfo() : bool {
-		return self::$_INFO_SHOW_CALLER_FILE;
-	}
-
 
 	public static function GetLogFilepath() : string {
 		if (!isset(self::$LOG_FILEPATH)) {
