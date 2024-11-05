@@ -37,7 +37,7 @@ class Log {
 	}
 
 	public static function info(mixed $message) : void {
-		if (Logger::IsCalerFileShownOnInfo()) {
+		if (Logger::IsCallerFileShownOnInfo()) {
 			$reference = self::getCallerReference();
 			self::log(LoggerLevel::INFO, $message, $reference);
 		} else {
