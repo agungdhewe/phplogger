@@ -9,6 +9,7 @@ class Logger {
 	public static string $DEBUG_FILEPATH;
 
 	private static bool $_DEBUG_MODE = false;
+	private static bool $_INFO_SHOW_CALLER_FILE = false;
 
 	public static function SetOutput(string $output) : void {
 		self::$OUTPUT = $output;
@@ -41,6 +42,14 @@ class Logger {
 			}
 		}
 
+	}
+
+	public static function ShowCallerFileOnInfo(bool $value) : void {
+		self::$_INFO_SHOW_CALLER_FILE = $value;
+	}
+
+	public static function IsCalerFileShownOnInfo() : bool {
+		return self::$_INFO_SHOW_CALLER_FILE;
 	}
 
 
