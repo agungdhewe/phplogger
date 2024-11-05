@@ -14,7 +14,11 @@ class Log {
 			Logger::Debug($text . "\t" . "\e[0;33;40m" . $reference . "\e[0m");
 		} else {
 			Logger::WriteLn(date("Y-m-d H:i:s") . "\t" . $level . "\t" . $text);
-			Logger::Debug(LoggerLevel::getLabel($level) . "\t" . $text);
+			if ($reference=='') {
+				Logger::Debug(LoggerLevel::getLabel($level) . "\t" . $text);
+			} else {
+				Logger::Debug(LoggerLevel::getLabel($level) . "\t" . $text . " " . $reference);
+			}	
 		}
 	
 		
