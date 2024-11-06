@@ -2,6 +2,9 @@
 
 class Log {
 
+	private static mixed $_prevMessage;
+
+
 	private static function log(string $level, mixed $message, ?string $reference='') : string {
 		if (is_array($message) || is_object($message)) {
 			$text = print_r($message, true);
@@ -51,13 +54,19 @@ class Log {
 	}
 
 	public static function error(mixed $message) : string {
-		$reference = self::getCallerReference();
-		$msg = self::log(LoggerLevel::ERROR, $message . "\t" . $reference);
-		if (Logger::IsShowScriptReferenceToUser()) {
-			return $msg;
-		} else {
+		if ($message==self::$_prevMessage) {
 			return $message;
+		} else {
+			self::$_prevMessage = $message;
+			$reference = self::getCallerReference();
+			$msg = self::log(LoggerLevel::ERROR, $message . "\t" . $reference);
+			if (Logger::IsShowScriptReferenceToUser()) {
+				return $msg;
+			} else {
+				return $message;
+			}
 		}
+		
 		
 	}
 
