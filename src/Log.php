@@ -2,7 +2,7 @@
 
 class Log {
 
-	private static mixed $_prevMessage;
+	private static mixed $_prevMessage = null;
 
 
 	private static function log(string $level, mixed $message, ?string $reference='') : string {
