@@ -10,6 +10,7 @@ class Logger {
 
 	private static bool $_DEBUG_MODE = false;
 	private static bool $_INFO_SHOW_CALLER_FILE = false;
+	private static bool $_SHOW_SCRIPT_REF_TOUSER = true;
 
 	public static function SetOutput(string $output) : void {
 		self::$OUTPUT = $output;
@@ -52,6 +53,15 @@ class Logger {
 
 	public static function IsCallerFileShownOnInfo() : bool {
 		return self::$_INFO_SHOW_CALLER_FILE;
+	}
+
+
+	public static function IsShowScriptReferenceToUser() : bool {
+		return self::$_SHOW_SCRIPT_REF_TOUSER;
+	}
+
+	public static function ShowScriptReferenceToUser(bool $value) : void {
+		self::$_SHOW_SCRIPT_REF_TOUSER = $value;
 	}
 
 	public static function GetLogFilepath() : string {

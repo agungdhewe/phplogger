@@ -53,13 +53,23 @@ class Log {
 	public static function error(mixed $message) : string {
 		$reference = self::getCallerReference();
 		$msg = self::log(LoggerLevel::ERROR, $message . "\t" . $reference);
-		return $msg;
+		if (Logger::IsShowScriptReferenceToUser()) {
+			return $msg;
+		} else {
+			return $message;
+		}
+		
 	}
 
 	public static function warning(mixed $message) : string {
 		$reference = self::getCallerReference();
 		$msg = self::log(LoggerLevel::WARNING, $message . "\t" . $reference);
-		return $msg;
+		if (Logger::IsShowScriptReferenceToUser()) {
+			return $msg;
+		} else {
+			return $message;
+		}
+		
 	}
 
 	public static function print(mixed $message) : void {
