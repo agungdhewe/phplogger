@@ -12,8 +12,8 @@ Simple logger for php
 
 	use AgungDhewe\PhpLogger\Log;
 
-	Log::info("Hello World");
-	Log::debug("test debug");
+	Log::Info("Hello World");
+	Log::Debug("test debug");
 
 
 ### Output to File Only
@@ -24,9 +24,9 @@ Simple logger for php
 
 	Logger::SetOutput(LoggerOutput::FILE);
 
-	Log::info("Hello World");
-	Log::debug("test debug");
-	Log::error("test error");
+	Log::Info("Hello World");
+	Log::Debug("test debug");
+	Log::Error("test error");
 
 
 ### Change log filename
@@ -38,6 +38,6 @@ Simple logger for php
 	Logger::SetOutput(LoggerOutput::FILE);
 	Logger::SetFilepath(__DIR__ . "/myownlog.txt");
 
-	Log::info("Hello World");
-	Log::debug("test debug");
-	Log::error("test error");
+	Log::Info("Hello World");
+	Log::Debug("test debug");
+	Log::Error("test error");

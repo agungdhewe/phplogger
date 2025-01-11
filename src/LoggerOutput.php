@@ -2,8 +2,8 @@
 
 class LoggerOutput
 {
-	const string NONE = 'none';
-	const string FILE = 'file';
-	const string SCREEN = 'screen';
-	const string SCREEN_ONLY = 'screen_only';
+	const NONE = 'none';
+	const FILE = 'file';
+	const SCREEN = 'screen';
+	const SCREEN_ONLY = 'screen_only';
 }

@@ -11,6 +11,53 @@ class Logger {
 	private static bool $_DEBUG_MODE = false;
 	private static bool $_INFO_SHOW_CALLER_FILE = false;
 	private static bool $_SHOW_SCRIPT_REF_TOUSER = true;
+	private static bool $_SUPPRESS_INFO = false;
+	private static bool $_SUPPRESS_WARNING = false;
+	private static bool $_SUPPRESS_ERROR = false;
+	private static bool $_SUPPRESS_DEBUG = false;
+	private static bool $_SUPPRESS_PRINT = false;
+	
+	
+	public static function SuppressInfo(bool $value) : void {
+		self::$_SUPPRESS_INFO = $value;
+	}
+
+	public static function SuppressWarning(bool $value) : void {
+		self::$_SUPPRESS_WARNING = $value;
+	}
+
+	public static function SuppressError(bool $value) : void {
+		self::$_SUPPRESS_ERROR = $value;
+	}
+
+	public static function SuppressDebug(bool $value) : void {
+		self::$_SUPPRESS_DEBUG = $value;
+	}
+
+	public static function SuppressPrint(bool $value) : void {
+		self::$_SUPPRESS_PRINT = $value;
+	}
+
+	public static function IsSuppressInfo() : bool {
+		return self::$_SUPPRESS_INFO;
+	}
+
+	public static function IsSuppressWarning() : bool {
+		return self::$_SUPPRESS_WARNING;
+	}
+
+	public static function IsSuppressError() : bool {
+		return self::$_SUPPRESS_ERROR;
+	}
+
+	public static function IsSuppressDebug() : bool {
+		return self::$_SUPPRESS_DEBUG;
+	}
+
+	public static function IsSuppressPrint() : bool {
+		return self::$_SUPPRESS_PRINT;
+	}
+
 
 	public static function SetOutput(string $output) : void {
 		self::$OUTPUT = $output;
@@ -42,7 +89,7 @@ class Logger {
 
 	}
 
-	public static function clearDebug() : void {
+	public static function ClearDebug() : void {
 		$debugpath = self::GetDebugFilepath();
 		file_put_contents($debugpath, "");
 	}

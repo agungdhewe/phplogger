@@ -5,7 +5,7 @@ class Log {
 	private static mixed $_prevMessage = null;
 
 
-	private static function log(string $level, mixed $message, ?string $reference='') : string {
+	private static function WriteLog(string $level, mixed $message, ?string $reference='') : string {
 		if (is_array($message) || is_object($message)) {
 			$text = print_r($message, true);
 		} else {
@@ -18,48 +18,60 @@ class Log {
 		} else {
 			Logger::WriteLn(date("Y-m-d H:i:s") . "\t" . $level . "\t" . $text);
 			if ($reference=='') {
-				Logger::Debug(LoggerLevel::getLabel($level) . "\t" . $text);
+				Logger::Debug(LoggerLevel::GetLabel($level) . "\t" . $text);
 			} else {
-				Logger::Debug(LoggerLevel::getLabel($level) . "\t" . $text . " " . "\e[0;34;40m" . $reference. "\e[0m");
+				Logger::Debug(LoggerLevel::GetLabel($level) . "\t" . $text . " " . "\e[0;34;40m" . $reference. "\e[0m");
 			}	
 		}
 	
 		
 		if (Logger::$OUTPUT == LoggerOutput::SCREEN | Logger::$OUTPUT == LoggerOutput::SCREEN_ONLY) {
-			Logger::PrintLn(LoggerLevel::getLabel($level) . ": " . $text);
+			Logger::PrintLn(LoggerLevel::GetLabel($level) . ": " . $text);
 		}
 
 		return $text;
 	}
 
-	public static function getCallerReference() : string {
+	public static function GetCallerReference() : string {
 		$trace = debug_backtrace();
 		$caller = $trace[1];
 		$reference = $caller['file'] . ":" . $caller['line'];
 		return $reference;
 	}
 
-	public static function info(mixed $message) : void {
+	public static function Info(mixed $message) : void {
+		if (Logger::IsSuppressInfo()) {
+			return;
+		}
+
 		if (Logger::IsCallerFileShownOnInfo()) {
-			$reference = self::getCallerReference();
-			self::log(LoggerLevel::INFO, $message, $reference);
+			$reference = self::GetCallerReference();
+			self::WriteLog(LoggerLevel::INFO, $message, $reference);
 		} else {
-			self::log(LoggerLevel::INFO, $message);
+			self::WriteLog(LoggerLevel::INFO, $message);
 		}
 	}
 
-	public static function debug(mixed $message) : void {
-		$reference = self::getCallerReference();
-		self::log(LoggerLevel::DEBUG, $message, $reference);;
+	public static function Debug(mixed $message) : void {
+		if (Logger::IsSuppressDebug()) {
+			return;
+		}
+
+		$reference = self::GetCallerReference();
+		self::WriteLog(LoggerLevel::DEBUG, $message, $reference);;
 	}
 
-	public static function error(mixed $message) : string {
+	public static function Error(mixed $message) : string {
+		if (Logger::IsSuppressError()) {
+			return $message;
+		}
+
 		if ($message==self::$_prevMessage) {
 			return $message;
 		} else {
 			self::$_prevMessage = $message;
-			$reference = self::getCallerReference();
-			$msg = self::log(LoggerLevel::ERROR, $message . "\t" . $reference);
+			$reference = self::GetCallerReference();
+			$msg = self::WriteLog(LoggerLevel::ERROR, $message . "\t" . $reference);
 			if (Logger::IsShowScriptReferenceToUser()) {
 				return $msg;
 			} else {
@@ -70,9 +82,13 @@ class Log {
 		
 	}
 
-	public static function warning(mixed $message) : string {
-		$reference = self::getCallerReference();
-		$msg = self::log(LoggerLevel::WARNING, $message . "\t" . $reference);
+	public static function Warning(mixed $message) : string {
+		if (Logger::IsSuppressWarning()) {
+			return $message;
+		}
+
+		$reference = self::GetCallerReference();
+		$msg = self::WriteLog(LoggerLevel::WARNING, $message . "\t" . $reference);
 		if (Logger::IsShowScriptReferenceToUser()) {
 			return $msg;
 		} else {
@@ -81,7 +97,11 @@ class Log {
 		
 	}
 
-	public static function print(mixed $message) : void {
+	public static function Print(mixed $message) : void {
+		if (Logger::IsSuppressPrint()) {
+			return;
+		}
+
 		if (is_array($message) || is_object($message)) {
 			$text = print_r($message, true);
 		} else {

@@ -3,7 +3,7 @@
     "description": "logger untuk PHP",
     "type": "library",
     "require": {
-        "php": "^8.3"
+        "php": "^8.2"
     },
     "license": "GPL-3.0-or-later",
     "autoload": {
